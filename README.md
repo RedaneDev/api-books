@@ -1,3 +1,5 @@
+TEST RÉALISÉ SOUS PHP 8.2 & SYMFONY 6.4
+
 1. Créer le fichier `.env.local`.
 
 2. Dans ce fichier, entrer l'URL de la base de données avec ses identifiants selon le format suivant :
