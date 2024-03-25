@@ -19,31 +19,33 @@ class ApiController extends AbstractController
         $books = $bookRepository->findAll();
 
         try {
-            $jsonData = $serializer->serialize($books, 'json', ['json_encode_options' => JSON_UNESCAPED_UNICODE , 'groups' => 'books_infos']);
+            $jsonData = $serializer->serialize($books, 'json', ['json_encode_options' => JSON_UNESCAPED_UNICODE, 'groups' => 'books_infos']);
 
             return new JsonResponse($jsonData, Response::HTTP_OK, [], true);
-
         } catch (Exception $e) {
             return new JsonResponse(['error' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
-
-
     }
 
     #[Route('/book/{id}')]
     public function getBook($id, BookRepository $bookRepository, SerializerInterface $serializer): Response
     {
+        // Récupération du livre à partir de l'ID
         $book = $bookRepository->find($id);
-        
+
+        // Si aucun livre correspondant à l'ID n'est trouvé
         if (!$book) {
             return new JsonResponse(['error' => 'Ressources Inexistantes'], Response::HTTP_NOT_FOUND);
         }
 
         try {
-            $jsonData = $serializer->serialize($book, 'json', ['json_encode_options' => JSON_UNESCAPED_UNICODE , 'groups' => 'book_details']);
+            // Sérialisation du livre en JSON en spécifiant les options de sérialisation
+            $jsonData = $serializer->serialize($book, 'json', ['json_encode_options' => JSON_UNESCAPED_UNICODE, 'groups' => 'book_details']);
 
+            // Réponse JSON contenant les données sérialisées du livre
             return new JsonResponse($jsonData, Response::HTTP_OK, [], true);
         } catch (Exception $e) {
+            // En cas d'erreur pendant la sérialisation
             return new JsonResponse(['error' => $e->getMessage()], Response::HTTP_NOT_FOUND);
         }
     }

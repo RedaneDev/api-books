@@ -61,7 +61,6 @@ class BookFixtures extends Fixture
 
             $author = null;
             foreach ($authors as $existingAuthor) {
-                dump($existingAuthor);
                 if ($existingAuthor->getId() === $bookData['authorId']) {
                     $author = $existingAuthor;
                     break;

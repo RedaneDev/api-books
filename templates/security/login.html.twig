@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <a href="{{ path('admin') }}" class="mt-5 btn btn-secondary">Retour Dashboard</a>
+    <form method="post">
+
+        <h1 class="mt-5 h3 mb-3 font-weight-normal">Connexion</h1>
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+        <div class="mb-3">
+            <label for="inputEmail">Email</label>
+            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+        </div>
+        <div class="mb-3">
+            <label for="inputPassword">Mot de passe</label>
+            <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+        </div>
+
+        <input type="hidden" name="_csrf_token"
+            value="{{ csrf_token('authenticate') }}"
+        >
+
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" name="_remember_me"> Se souvenir de moi
+            </label>
+        </div>
+        <div class="d-flex gap-3">
+
+            <button class="btn btn-primary" type="submit">
+                Connexion
+            </button>
+
+            <a href="{{ path('app_register') }}" class="btn btn-primary" type="submit">
+                S'enregister
+            </a>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
